@@ -27,5 +27,7 @@ public class ADDNumberFactory implements NumberFactory {
     public Object createNumber(double constant) {
         return jadd.makeConstant(constant);
     }
+    
+    /*Comentario de teste*/
 
 }
