@@ -118,18 +118,13 @@ public class ExpressionSolver {
             LOGGER.warning("Parser error: " + parser.getErrorInfo());
             return null;
         }
-
-        parser.addVariableAsObject("true", jadd.makeConstant(1));
-        parser.addVariableAsObject("True", jadd.makeConstant(1));
-        parser.addVariableAsObject("false", jadd.makeConstant(0));
-        parser.addVariableAsObject("False", jadd.makeConstant(0));
+        
+        addVariablestoParser(parser);
+        
         SymbolTable symbolTable = parser.getSymbolTable();
         @SuppressWarnings("unchecked")
         Set<String> variables = new HashSet<String>(symbolTable.keySet());
-        variables.remove("true");
-        variables.remove("True");
-        variables.remove("false");
-        variables.remove("False");
+        removeDetailsFromVariables(variables);   
 
         for (Object var : variables) {
             String varName = (String) var;
@@ -139,6 +134,20 @@ public class ExpressionSolver {
         return (ADD) parser.getValueAsObject();
     }
 
+    private void addVariablestoParser(JEP parser) {
+    	parser.addVariableAsObject("true", jadd.makeConstant(1));
+        parser.addVariableAsObject("True", jadd.makeConstant(1));
+        parser.addVariableAsObject("false", jadd.makeConstant(0));
+        parser.addVariableAsObject("False", jadd.makeConstant(0));
+    }
+    
+    private void removeDetailsFromVariables(Set<String> variables) {
+    	variables.remove("true");
+        variables.remove("True");
+        variables.remove("false");
+        variables.remove("False");
+    }
+    
     /**
      * Lower level alternative for {@link solveExpression(String)}.
      *
