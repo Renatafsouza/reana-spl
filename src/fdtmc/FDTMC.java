@@ -157,14 +157,19 @@ public class FDTMC {
 	                                           errorTransition);
 
 	    List<Interface> interfaceOccurrences = null;
-	    if (interfaces.containsKey(id)) {
+	    interfaceOccurrences = manageInterfaceOccurencesID(id, interfaceOccurrences);
+	    interfaceOccurrences.add(newInterface);
+	    return newInterface;
+	}
+	
+	private List<Interface> manageInterfaceOccurencesID (String id, List<Interface> interfaceOccurrences){
+		if (interfaces.containsKey(id)) {
 	        interfaceOccurrences = interfaces.get(id);
 	    } else {
 	        interfaceOccurrences = new LinkedList<Interface>();
 	        interfaces.put(id, interfaceOccurrences);
 	    }
-	    interfaceOccurrences.add(newInterface);
-	    return newInterface;
+		return interfaceOccurrences;
 	}
 
 	public State getStateByLabel(String label) {
@@ -217,9 +222,11 @@ public class FDTMC {
 	}
 	
 	private String buildStringMsg (Transition t, State temp) {
-		return temp.getVariableName() + "=" + temp.getIndex() + ((temp.getLabel() != null) ? "(" + temp.getLabel() + ")" : "") +
+		return temp.getVariableName() + "=" + temp.getIndex() + 
+				((temp.getLabel() != null) ? "(" + temp.getLabel() + ")" : "") +
 		" --- " + t.getActionName() + " / " + t.getProbability() +
-		" ---> " + t.getTarget().getVariableName() + "=" + t.getTarget().getIndex() + ((t.getTarget().getLabel() != null) ? "(" + t.getTarget().getLabel() + ")" : "") + "\n";
+		" ---> " + t.getTarget().getVariableName() + "=" + t.getTarget().getIndex() + 
+		((t.getTarget().getLabel() != null) ? "(" + t.getTarget().getLabel() + ")" : "") + "\n";
 	}
 
 	/**
