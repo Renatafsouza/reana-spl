@@ -131,7 +131,13 @@ public class FDTMC {
 		Transition newTransition = new Transition(source, target, action, reliability);
 		boolean success = l.add(newTransition);
 		transitionSystem.put(source, l);
-		return success ? newTransition : null;
+		
+		if(success) {
+			return newTransition;
+		} else {
+			return null;
+		}
+		
 	}
 
 	/**
