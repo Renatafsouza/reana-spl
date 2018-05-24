@@ -21,8 +21,7 @@ public class LogicalNot extends PostfixMathCommand {
         Object param1 = inStack.pop();
 
         if (param1 instanceof ADD) {
-            ADD result = ((ADD) param1).complement();
-            inStack.push(result); // push the result on the inStack
+            inStack.push(((ADD) param1).complement()); // push the param1 complement on the inStack
             return;
         }
         throw new ParseException("Invalid parameter type");
