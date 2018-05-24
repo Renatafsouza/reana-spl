@@ -22,8 +22,7 @@ public class LogicalAnd extends PostfixMathCommand {
         Object param1 = inStack.pop();
 
         if ((param1 instanceof ADD) && (param2 instanceof ADD)) {
-            ADD result = ((ADD) param1).and((ADD) param2);
-            inStack.push(result); // push the result on the inStack
+            inStack.push(((ADD) param1).and((ADD) param2)); // push the result on the inStack
             return;
         }
         throw new ParseException("Invalid parameter type");
