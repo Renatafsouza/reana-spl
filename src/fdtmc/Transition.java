@@ -38,11 +38,15 @@ public class Transition {
     public boolean equals(Object obj) {
         if (obj != null && obj instanceof Transition) {
             Transition other = (Transition) obj;
-            return source.equals(other.source)
-                    && target.equals(other.target)
-                    && areEqualProbabilities(probability, other.probability);
+            return statesAreEquals(other);
         }
         return false;
+    }
+    
+    private boolean statesAreEquals (Transition transition) {
+    	return source.equals(transition.source)
+                && target.equals(transition.target)
+                && areEqualProbabilities(probability, transition.probability);
     }
 
     @Override
